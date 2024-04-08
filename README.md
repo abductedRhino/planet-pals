@@ -1,6 +1,6 @@
 # Agile web development
 
-## Setup
+## 00 Setup
 
 ### Install nvm
 
@@ -8,21 +8,33 @@
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
 
-install nvm: https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script
+install nvm: <https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script>
 
-compare Node versions: https://nodejs.org/en/download/
+compare Node versions: <https://nodejs.org/en/download/>
 
 ### Node hello world
+
+#### Run a .js file with node
+
+Create a file `hello.js`. The file just prints to system out.
 
 ```javascript
 // hello.js
 console.log('Hello, Universe!');
 ```
 
-```bash
+In the same directory, run the file with `node`.
+
+```console
 node hello
 Hello, Universe!
 ```
+
+### Node REPL
+
+#### Load a file into interactive node
+
+Create a file `messages.js`. The file contains an array called messages.
 
 ```javascript
 //messages.js
@@ -32,7 +44,11 @@ let messages = [
   important message
 ];
 ```
-```bash
+
+Run `node` in the same direcory to start the REPL. `.load messages.js` gives access to the array messages.
+Print the array. Then run `.save positive_messages.js` to save all commands to a file.
+
+```console
 node
 Welcome to Node.js v20.12.1.
 Type ".help" for more information.
@@ -65,6 +81,6 @@ let messages = [
 
 
 messages.forEach(m=>console.log(m));
-``` 
+```
 
-## Building a static Web App
+## 01 Building a static Web App
