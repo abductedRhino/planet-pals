@@ -104,3 +104,64 @@ The module can be used like this.
 const messages_module = require('./messages');
 messages_module.messages.forEach(m => console.log(m));
 ```
+
+### Npm
+
+Run `npm init` and `npm install cities --save`.
+
+```javascript
+// main.js
+const cities = require('cities');
+var my_city = cities.zip_lookup('10016');
+console.log(my_city);
+```
+
+Run with `node main.js`
+
+```console
+[me@thinkpad recipe_connection]$ node main.js
+{
+  zipcode: '10016',
+  state_abbr: 'NY',
+  latitude: '40.746180',
+  longitude: '-73.97759',
+  city: 'New York',
+  state: 'New York'
+}
+[me@thinkpad recipe_connection]$ 
+```
+
+### Lesson 4
+
+Install `http` and `http-status-codes` (deprecated?). Create a simple web server and start it with `node main.js`.
+
+```javascript
+const port = 3000
+const http = require('http');
+const http_status_codes = require('http-status-codes');
+const app = http.createServer((req, res) => {
+  console.log('Received an incoming request!');
+  res.writeHead(http_status_codes.OK, {
+    'Content-Type': 'text/html'
+  });
+  let response_message = '<h1>Hello, Universe!</h1>';
+  res.write(response_message);
+  res.end();
+  console.log(`Sent a response : ${response_message}`);
+})
+
+app.listen(port);
+console.log(`Listening on port ${port}`);
+
+```
+
+```console
+[me@thinkpad simple_server]$ node main.js
+Listening on port 3000
+Received an incoming request!
+Sent a response : <h1>Hello, Universe!</h1>
+Received an incoming request!
+Sent a response : <h1>Hello, Universe!</h1>
+^C
+[me@thinkpad simple_server]$ 
+```
