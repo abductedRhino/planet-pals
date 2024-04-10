@@ -25,7 +25,7 @@ app.on('request', (req, res) => {
     'Content-Type': 'text/html'
   });
   let response_message = route_response_map[req.url] || '<h1>Hello, Universe!</h1>';
-  res.end(response_message);
+  setTimeout(() => res.end(response_message), 2000);
 })
 
 app.listen(port);
