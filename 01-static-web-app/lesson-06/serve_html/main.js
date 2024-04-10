@@ -6,30 +6,20 @@ const route_map = {
 }
 http
   .createServer((req, res) => {
-    res.writeHead(200, {
-      'Content-Type': 'text/html'
-    });
-    if (route_map[req.url]) {
-      fs.readFile(route_map[req.url], (error, data) => {
+    fs.readFile(get_view_url(req.url), (error, data) => {
+      if (error) {
+        res.writeHead(404);
+        res.write('<h1>FILE NOT FOUND</h1>');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
         res.write(data);
-        res.end();
-      });
-    } else {
-      res.end('Sorry, not found');
-    }
+      }
+      res.end();
+    });
   })
   .listen(port);
 console.log(`Listening on port ${port}`);
 
-function dynamicRoute(url) {
-  fs.readFile(url, (error, data) => {
-    if (error) {
-      res.writeHead(404);
-      res.write('<h1>FILE NOT FOUND</h1>');
-    } else {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.write(data);
-    }
-    res.end();
-  });
+function get_view_url(url) {
+  return `views${url}.html`;
 }

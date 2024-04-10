@@ -169,6 +169,7 @@ Sent a response : <h1>Hello, Universe!</h1>
 ### Lesson 5
 
 The server now has routes.
+
 ```javascript
 const route_response_map = {
   "/info": "<h1>Info Page</h1>",
@@ -204,3 +205,6 @@ app.listen(port);
 console.log(`Listening on port ${port}`);
 
 ```
+
+### Lesson 6
+
