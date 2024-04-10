@@ -84,3 +84,23 @@ messages.forEach(m=>console.log(m));
 ```
 
 ## 01 Building a static Web App
+
+### Node module
+
+Append to the Node.js exports object. The exports object is a property of the module object.
+
+```javascript
+// messages.js
+exports.messages = [
+  'You are great!',
+  'You can accomplish anything!',
+  'Success is in your future!'
+];
+```
+
+The module can be used like this.
+
+```javascript
+const messages_module = require('./messages');
+messages_module.messages.forEach(m => console.log(m));
+```
