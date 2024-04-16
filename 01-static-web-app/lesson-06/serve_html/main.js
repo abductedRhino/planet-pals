@@ -2,9 +2,22 @@ const port = 4000;
 const http = require('http');
 const fs = require('fs');
 
+const routes = {
+  '.html': (url) => `./views${url}`,
+  '.js': (url) => `./public/js${url}`,
+  '.css': (url) => `./public/css${url}`,
+  '.png': (url) => `./public/images${url}`,
+}
+
 http
   .createServer((req, res) => {
-    fs.readFile(get_view_url(req.url), (error, data) => {
+    let filePath = null;
+    for (let key in routes) {
+      if (req.url.endsWith(key)) {
+        filePath = routes[key](req.url);
+      }
+    }
+    fs.readFile(filePath, (error, data) => {
       if (error) {
         res.writeHead(404);
         res.write('<h1>FILE NOT FOUND</h1>');
