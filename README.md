@@ -208,3 +208,4 @@ console.log(`Listening on port ${port}`);
 
 ### Lesson 6
 
+Create a more elaborate server that can handle routing. Then, move everything to a new file, `router.js`.
