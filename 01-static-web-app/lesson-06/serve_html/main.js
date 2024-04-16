@@ -10,12 +10,16 @@ class FileLocator {
     '.css': (url) => `./public/css${url}`,
     '.png': (url) => `./public/images${url}`,
   }
+  /**
+   * @param {String} url The url to convert to a file location.
+   */
   getFilePathForUrl(url) {
     for (let key in this.locations) {
       if (url.endsWith(key)) {
         return this.locations[key](url);
       }
     }
+    throw new Error(`No file location found for URL: ${url}`)
   }
 }
 const fileLocator = new FileLocator();
