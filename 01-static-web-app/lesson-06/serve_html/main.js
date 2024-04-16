@@ -1,6 +1,7 @@
 const port = 4000;
 const http = require('http');
 const fs = require('fs');
+const router = require('./router');
 
 class FileLocator {
   constructor() { }
@@ -23,19 +24,18 @@ class FileLocator {
   }
 }
 const fileLocator = new FileLocator();
+
+function readFile(file, res) {
+  fs.readFile(file, (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+    res.end(data);
+  });
+}
 http
   .createServer((req, res) => {
-    let filePath = fileLocator.getFilePathForUrl(req.url)
-    fs.readFile(filePath, (error, data) => {
-      if (error) {
-        res.writeHead(404);
-        res.write('<h1>FILE NOT FOUND</h1>');
-      } else {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.write(data);
-      }
-      res.end();
-    });
+    readFile(fileLocator.getFilePathForUrl(req.url), res)
   })
   .listen(port);
 console.log(`Listening on port ${port}`);
