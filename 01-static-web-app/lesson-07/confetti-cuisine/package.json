@@ -1,0 +1,11 @@
+{
+  "name": "confetti-cuisine",
+  "version": "1.0.0",
+  "description": "A site for booking cooking classes",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abducted Rhino",
+  "license": "ISC"
+}
