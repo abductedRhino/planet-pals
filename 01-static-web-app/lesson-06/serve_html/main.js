@@ -1,9 +1,7 @@
 const port = 4000;
 const http = require('http');
 const fs = require('fs');
-const route_map = {
-  '/': 'views/index.html'
-}
+
 http
   .createServer((req, res) => {
     fs.readFile(get_view_url(req.url), (error, data) => {
@@ -21,5 +19,7 @@ http
 console.log(`Listening on port ${port}`);
 
 function get_view_url(url) {
-  return `views${url}.html`;
+  url = `./views/index.html`;
+  console.log(url)
+  return url;
 }
