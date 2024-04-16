@@ -2,12 +2,6 @@ const port = 4000;
 const http = require('http');
 const fs = require('fs');
 
-const fileLocations = {
-  '.html': (url) => `./views${url}`,
-  '.js': (url) => `./public/js${url}`,
-  '.css': (url) => `./public/css${url}`,
-  '.png': (url) => `./public/images${url}`,
-}
 class FileLocator {
   constructor() { }
   locations = {
