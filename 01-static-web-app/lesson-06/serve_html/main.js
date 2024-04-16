@@ -3,6 +3,8 @@ const http = require('http');
 const fs = require('fs');
 const router = require('./router');
 
+const htmlContentType = { 'Content-Type': 'text/html' };
+
 class FileLocator {
   constructor() { }
   locations = {
@@ -33,9 +35,9 @@ function readFile(file, res) {
     res.end(data);
   });
 }
-http
-  .createServer((req, res) => {
-    readFile(fileLocator.getFilePathForUrl(req.url), res)
-  })
-  .listen(port);
+http.createServer(router.handle).listen(port);
+router.get('/index.html', (req, res) => {
+  res.writeHead(200, htmlContentType);
+  readFile(fileLocator.getFilePathForUrl('/index.html'), res);
+});
 console.log(`Listening on port ${port}`);

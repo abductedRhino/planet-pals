@@ -1,4 +1,3 @@
-const htmlContentType = { 'Content-Type': 'text/html' };
 const routes = {
   'GET': {
     '/info': (req, res) => {
