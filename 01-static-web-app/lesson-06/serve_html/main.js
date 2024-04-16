@@ -2,21 +2,32 @@ const port = 4000;
 const http = require('http');
 const fs = require('fs');
 
-const routes = {
+const fileLocations = {
   '.html': (url) => `./views${url}`,
   '.js': (url) => `./public/js${url}`,
   '.css': (url) => `./public/css${url}`,
   '.png': (url) => `./public/images${url}`,
 }
-
-http
-  .createServer((req, res) => {
-    let filePath = null;
-    for (let key in routes) {
-      if (req.url.endsWith(key)) {
-        filePath = routes[key](req.url);
+class FileLocator {
+  constructor() { }
+  locations = {
+    '.html': (url) => `./views${url}`,
+    '.js': (url) => `./public/js${url}`,
+    '.css': (url) => `./public/css${url}`,
+    '.png': (url) => `./public/images${url}`,
+  }
+  getFilePathForUrl(url) {
+    for (let key in this.locations) {
+      if (url.endsWith(key)) {
+        return this.locations[key](url);
       }
     }
+  }
+}
+const fileLocator = new FileLocator();
+http
+  .createServer((req, res) => {
+    let filePath = fileLocator.getFilePathForUrl(req.url)
     fs.readFile(filePath, (error, data) => {
       if (error) {
         res.writeHead(404);
@@ -30,9 +41,3 @@ http
   })
   .listen(port);
 console.log(`Listening on port ${port}`);
-
-function get_view_url(url) {
-  url = `./views/index.html`;
-  console.log(url)
-  return url;
-}
