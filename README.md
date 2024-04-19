@@ -209,3 +209,7 @@ console.log(`Listening on port ${port}`);
 ### Lesson 6
 
 Create a more elaborate server that can handle routing. Then, move everything to a new file, `router.js`.
+
+### Lesson 8
+
+Express is considered middleware, because it sits between HTTP interachton on the wen and the Node.js platform.
