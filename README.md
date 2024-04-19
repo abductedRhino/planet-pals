@@ -213,3 +213,6 @@ Create a more elaborate server that can handle routing. Then, move everything to
 ### Lesson 8
 
 Express is considered middleware, because it sits between HTTP interachton on the wen and the Node.js platform.
+#### trythis
+`curl --data '' 127.0.0.1:3000/`
+
