@@ -212,7 +212,14 @@ Create a more elaborate server that can handle routing. Then, move everything to
 
 ### Lesson 8
 
+nodemon is installed like
+npm i nodemon --save-dev
+add "start":"nodemon main.js" to package.json
+run like
+npm start
 Express is considered middleware, because it sits between HTTP interachton on the wen and the Node.js platform.
 #### trythis
 `curl --data '' 127.0.0.1:3000/`
+
+### Lesson 9
 
