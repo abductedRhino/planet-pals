@@ -2,12 +2,14 @@ const port = 3000;
 const express = require('express');
 const app = express();
 
+// http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
 app.use((req, res, next) => {
-  console.log('incoming request');
+  console.log('middleware=app.use');
+  console.log(req.query)  // --> { cart: '3', pagesVisited: '4', utmcode: '1234' }
   next();
 })
 app.use('/items', (req, res, next) => {
-  console.log('incoming request to "/items"');
+  console.log('middleware=app.use /items');
   next();
 })
 // use middleware that analyses incoming request bodies that are url-encoded.
