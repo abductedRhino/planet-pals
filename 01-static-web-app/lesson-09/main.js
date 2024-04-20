@@ -3,19 +3,20 @@ const express = require('express');
 const app = express();
 
 app.use((req, res, next) => {
-  console.log(`incoming request to: ${req.url}`);
+  console.log('incoming request');
   next();
 })
 app.use('/items', (req, res, next) => {
-  console.log('Special request');
+  console.log('incoming request to "/items"');
   next();
 })
+// use middleware that analyses incoming request bodies that are url-encoded.
+// urlencoded are form posts and utf-8 content.
 app.use(express.urlencoded({ extended: false }));
+// use format json to parse middleware.
 app.use(express.json());
-// curl --data "first_name=Jon&last_name=Doe" 127.0.0.1:3000
-// --> body :  [Object: null prototype] { name: 'Jon', othername: 'Doe' }
-// --> query:  {}
 
+// curl --data "first_name=Jon&last_name=Doe" 127.0.0.1:3000
 app.post('/', (req, res) => {
   console.log('body : ', req.body);
   console.log('query: ', req.query);
