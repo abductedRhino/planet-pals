@@ -2,6 +2,7 @@ const port = 3000;
 const express = require('express');
 const app = express();
 const homeController = require('./controllers/homeController');
+const userController = require('./controllers/userController');
 
 // http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
 app.use(homeController.logRequestPath);
@@ -23,3 +24,5 @@ app.get('/items/:vegetable', homeController.getItemsVegetable);
 app.listen(port, () => {
   console.log(`Listening on port ${port}.`);
 })
+app.get('/sign-up.html', userController.getSignUp);
+app.post('/sign-up', userController.signUpProcessor);
