@@ -1,8 +1,8 @@
-const port = 3000;
 const express = require('express');
 const app = express();
 const homeController = require('./controllers/homeController');
 
+app.set('port', process.env.PORT || 3000);
 // http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
 app.use(homeController.logRequestPath);
 app.use('/items', homeController.logRequestPathItems);
@@ -20,6 +20,6 @@ app.get('/', homeController.getIndex);
 app.post('/contact', homeController.postContact);
 // curl 127.0.0.1:3000/items/apple
 app.get('/items/:vegetable', homeController.getItemsVegetable);
-app.listen(port, () => {
-  console.log(`Listening on port ${port}.`);
+app.listen(app.get('port'), () => {
+  console.log(`Listening on port ${app.get('port')}.`);
 })
