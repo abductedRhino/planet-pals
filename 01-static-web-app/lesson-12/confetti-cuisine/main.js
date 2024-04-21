@@ -27,6 +27,6 @@ app.listen(app.get('port'), () => {
   console.log(`Listening on port ${app.get('port')}.`);
 })
 // this catches errors:
-app.use(errorController.respondInternalError);
+app.use(errorController.internalServerError);
 // this needs to be the last thing, it catches routes:
-app.use(errorController.respondNoResourceFound);
+app.use(errorController.pageNotFoundError);
