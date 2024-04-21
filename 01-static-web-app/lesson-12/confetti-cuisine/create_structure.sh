@@ -1,0 +1,9 @@
+touch main.js
+mkdir public
+cd public
+  mkdir css 
+  mkdir images
+  mkdir js
+  cd ..
+mkdir controllers
+mkdir views
