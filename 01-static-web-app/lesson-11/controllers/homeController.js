@@ -26,6 +26,6 @@ exports.logRequestPathItems = (req, res, next) => {
   next();
 };
 exports.respondWithName = (req, res) => {
-  // const paramsName = req.params.name;  
+  const paramsName = req.params.name;  
   res.render('index', {name: paramsName});
 }
