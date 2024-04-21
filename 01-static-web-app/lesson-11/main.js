@@ -8,7 +8,6 @@ app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 // http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
 app.use(homeController.logRequestPath);
-app.use(errorController.logErrors);
 app.use('/items', homeController.logRequestPathItems);
 app.use(layouts);
 // use middleware that analyses incoming request bodies that are url-encoded.
@@ -29,3 +28,7 @@ app.listen(app.get('port'), () => {
   console.log(`Listening on port ${app.get('port')}.`);
 })
 app.get('/name/:name', homeController.respondWithName);
+// this catches errors:
+app.use(errorController.respondInternalError);
+// this needs to be the last thing, it catches routes:
+app.use(errorController.respondNoResourceFound);
