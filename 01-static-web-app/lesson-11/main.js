@@ -7,6 +7,7 @@ const layouts = require('express-ejs-layouts');
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 // http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
+app.use(express.static('public'));
 app.use(homeController.logRequestPath);
 app.use('/items', homeController.logRequestPathItems);
 app.use(layouts);
