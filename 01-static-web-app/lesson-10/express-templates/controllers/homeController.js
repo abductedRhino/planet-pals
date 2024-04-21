@@ -25,3 +25,6 @@ exports.logRequestPathItems = (req, res, next) => {
   console.log('middleware=app.use /items');
   next();
 };
+exports.respondWithName = (req, res) => {
+  res.render('index');
+}
