@@ -26,5 +26,5 @@ exports.logRequestPathItems = (req, res, next) => {
   next();
 };
 exports.respondWithName = (req, res) => {
-  res.render('index');
+  res.render('index', {name: req.params.name});
 }
