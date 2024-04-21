@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const homeController = require('./controllers/homeController');
+const layouts = require('express-ejs-layouts');
 
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 // http://127.0.0.1:3000/?cart=3&pagesVisited=4&utmcode=1234
 app.use(homeController.logRequestPath);
 app.use('/items', homeController.logRequestPathItems);
+app.use(layouts);
 // use middleware that analyses incoming request bodies that are url-encoded.
 // urlencoded are form posts and utf-8 content.
 app.use(express.urlencoded({ extended: false }));
