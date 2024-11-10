@@ -40,8 +40,28 @@ router.get("/bootstrap.css", (req, res) => {
     getFile("public/css/bootstrap-4.0.0-dist/css/bootstrap.min.css", res);
 });
 router.get("/htmx.min.js", (req, res) => {
-    res.writeHead(200, {"Content-Type": "text/js"});
+    res.writeHead(200, {"Content-Type": "application/javascript"});
     getFile("public/js/htmx.min.js", res);
+});
+
+router.get("/background.bundle.js", (req, res) => {
+    res.writeHead(200, {"Content-Type": "application/javascript"});
+    getFile("public/js/background.bundle.js", res);
+});
+
+router.get("/textures/:texture", (req, res, next) => {
+    const texture = req.params.texture;
+    if (!texture) {
+        return next();
+    }
+    if (texture.endsWith('.jpeg') || texture.endsWith('.jpg')) {
+        res.writeHead(200, {"Content-Type": "image/jpeg"});
+    } else if (texture.endsWith('.png')) {
+        res.writeHead(200, {"Content-Type": "image/png"});
+    } else {
+        return next();
+    }
+    getFile("public/assets/textures/"+texture, res, next);
 });
 
 router.get("/products", getAllProductsJSON);
