@@ -39,8 +39,6 @@ class Caster {
 	// calculate objects intersecting the picking ray
   const intersectedPlanets = this.planets;
 	const intersects = raycaster.intersectObjects( intersectedPlanets );
-  console.log(scene.children);
-  console.log(intersectedPlanets);
     // set default color in the beginning and make planets reset to default color after the planet is not hovererd anymore
     for ( let i = 0; i < this.planets.length; i ++ ) {
 
@@ -78,13 +76,13 @@ class Rotator2 {
 }
 
 class World {
-  constructor(container) {
+  constructor(htmlBody) {
     camera = createCamera();
     renderer = createRenderer();
     scene = createScene();
     raycaster = new Raycaster();
     loop = new Loop(camera, scene, renderer);
-    container.append(renderer.domElement);
+    htmlBody.append(renderer.domElement);
 
     const controls = createControls(camera, renderer.domElement);
     const light = createLights();
@@ -99,7 +97,7 @@ class World {
     loop.updatables.push(new Rotator([planet1, planet2, planet4, planet7, ring, ring2, planet5, planet7, planet6]));
     loop.updatables.push(new Rotator2([planet3, planet5, planet6, ring, planet7]));
 
-    const resizer = new Resizer(container, camera, renderer);
+    const resizer = new Resizer(htmlBody, camera, renderer);
   
   }
 
