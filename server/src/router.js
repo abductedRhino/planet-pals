@@ -1,6 +1,5 @@
-const httpStatus = require("http-status-codes"),
-    contentTypes = require("./contentTypes"),
-    utils = require("./utils");
+import { html } from "./contentTypes.js";
+import { getFile } from "./utils.js";
 
 // create route objects to hold route functions
 const routes = {
@@ -9,19 +8,19 @@ const routes = {
 };
 
 // create handle function to handle requests
-exports.handle = (req, res) => {
+export function handle(req, res) {
     try {
         routes[req.method][req.url](req, res);
     } catch (e) {
-        res.writeHead(httpStatus.OK, contentTypes.html);
-        utils.getFile("views/error.html", res);
+        res.writeHead(200, html);
+        getFile("views/error.html", res);
     }
-};
+}
 
 // map route functions
-exports.get = (url, action) => {
+export function get(url, action) {
     routes["GET"][url] = action;
-};
-exports.post = (url, action) => {
+}
+export function post(url, action) {
     routes["POST"][url] = action;
-};
+}

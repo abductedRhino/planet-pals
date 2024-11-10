@@ -16,28 +16,30 @@ const products = {
 };
 
 
-exports.renderShoppingCart = (req, res) => {
-    console.log('yeeeeeeeeeeeeeeee;',req.user)
+export function renderShoppingCart(req, res, next) {
+    if (!req.user) {
+        return next()
+    }
     res.render("shoppingcart", {user: req.user});
-};
+}
 
 
-exports.renderSearchView = (req, res) => {
+export function renderSearchView(req, res) {
     res.render("searchview", {products: req.data});
 }
 
 
-exports.renderProductView = (req, res) => {
+export function renderProductView(req, res) {
     const productID = req.params.productID;
     const product = products[productID];
     res.render("product", {product});
-};
+}
 
 
-exports.renderIndex = (req, res) => {
+export function renderIndex(req, res) {
     res.render("index", { username: req.params.username });
-};
+}
 
-exports.renderIndex2 = (req, res) => {
+export function renderIndex2(req, res) {
     res.render("index", { username: 'Tobi' });
-};
+}

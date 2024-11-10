@@ -1,6 +1,6 @@
-const Product = require('./../models/productModel');
+import Product from './../models/productModel.js';
 
-exports.getAllProducts = (req, res) => {
+export function getAllProducts(req, res) {
   Product.find({})
     .exec()
     .then((products) => {
@@ -10,7 +10,7 @@ exports.getAllProducts = (req, res) => {
       console.error(error.message);
     });
 }
-exports.getAllProductsJSON = (req, res) => {
+export function getAllProductsJSON(req, res) {
   Product.find({})
       .exec()
       .then((products) => {
@@ -21,7 +21,7 @@ exports.getAllProductsJSON = (req, res) => {
       });
 }
 
-exports.getAllProductsJSONRendered = (req, res) => {
+export function getAllProductsJSONRendered(req, res) {
     Product.find({})
         .exec()
         .then((products) => {
@@ -31,7 +31,7 @@ exports.getAllProductsJSONRendered = (req, res) => {
             console.error(error.message);
         });
 }
-exports.getFilteredProducts = (req, res) => {
+export function getFilteredProducts(req, res) {
   let filter = {};
   const search = req.body.search;
   console.log("filter:" + search)
@@ -49,7 +49,7 @@ exports.getFilteredProducts = (req, res) => {
     });
 }
 
-exports.saveProduct = (req, res) => {
+export function saveProduct(req, res) {
   new Product(
     req.body.productID,
     req.body.name,

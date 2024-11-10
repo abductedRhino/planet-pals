@@ -7,6 +7,7 @@
 * `nodejs`
 * `npmjs`
 * `docker` or `mongodb`
+* `python` (to run tests)
  
 ### Installation
 
@@ -33,6 +34,14 @@ You can run a development server with `nodemon` via `npm start`.
 
 ```console
 npm start
+```
+
+#### test
+
+There are some python tests that check availability of routes.
+
+```console
+npm test
 ```
 
 #### docker compose

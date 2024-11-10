@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const ProductSchema = new mongoose.Schema({
+import { Schema, model } from 'mongoose';
+const ProductSchema = new Schema({
   productID: {
     type: String,
     required: true,
@@ -28,15 +28,15 @@ const ProductSchema = new mongoose.Schema({
   // (many products can be in the same shopping cart, and one shopping cart can have many products)
   shoppingCart: [
     {
-      type: mongoose.Schema.Types.ObjectId, 
+      type: Schema.Types.ObjectId, 
       ref: 'ShoppingCart'
     }
   ],
   // Add a reference to the Planet model 
   // (one product can be exactly from one home planet, and one home planet can have many products)
   planet: {
-    type: mongoose.Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId, 
     ref: 'Planet'
   }
 });
-module.exports = mongoose.model('Product', ProductSchema);
+export default model('Product', ProductSchema);

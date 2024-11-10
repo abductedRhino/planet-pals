@@ -1,11 +1,11 @@
-const User = require('./../models/userModel');
-const argon2 = require('argon2');
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
+import User from './../models/userModel.js';
+import { verify as _verify } from 'argon2';
+import passport from "passport";
+import LocalStrategy from "passport-local";
 
 async function verifyPassword(hashOfPassword, plainTextPassword) {
     try {
-        const result = await argon2.verify(hashOfPassword, plainTextPassword);
+        const result = await _verify(hashOfPassword, plainTextPassword);
         if (result) {
           return 'correct';
         } else {
@@ -16,7 +16,7 @@ async function verifyPassword(hashOfPassword, plainTextPassword) {
     }
 }
 
-exports.verifyToken = async (req, res, next) => {
+export async function verifyToken(req, res, next) {
   try {
       const apiToken = req.query.apiToken;
 
@@ -35,9 +35,9 @@ exports.verifyToken = async (req, res, next) => {
   } catch (err) {
       res.status(500).send('Server error');
   }
-};
+}
 
-exports.renderUsersTable = (req, res) => {
+export function renderUsersTable(req, res) {
   User.find({})
     .then((users) => {
       res.render('usersTable', { users: users });
@@ -47,25 +47,25 @@ exports.renderUsersTable = (req, res) => {
     });
 }
 
-exports.renderLogin = (req, res) => {
+export function renderLogin(req, res) {
   res.render('login');
 }
-exports.renderProfile = (req, res) => {
+export function renderProfile(req, res) {
     console.log(req.query)
     console.log(req.query.apiToken)
     User.findOne({apiToken: req.query.apiToken})
         .then(async (user) => {
-            if (user == null) {
-                console.log('user not found:');
-                res.render('error')
+            if (!user) {
+                res.render('register')
+            } else {
+                res.render('profile', {user: user});
             }
-            res.render('profile', {user: user});
         })
         .catch((error) => {
             console.error(error);
         })
 }
-exports.loginUser = async (req, res) => {
+export async function loginUser(req, res) {
     User.findOne({email: req.body.user})
         .then(async (user) => {
             if (user == null) {
@@ -88,7 +88,7 @@ exports.loginUser = async (req, res) => {
             console.error(error);
         })
 }
-exports.updateUser = (req, res) => {
+export function updateUser(req, res) {
   const update = {};
   update[req.body.key] = req.body.value;
   User.findByIdAndUpdate(req.body.id, update, { new: true })
@@ -105,7 +105,7 @@ exports.updateUser = (req, res) => {
     });
 }
 
-exports.deleteUser = (req, res) => {
+export function deleteUser(req, res) {
   User.findByIdAndDelete(req.body.id)
     .then((user) => {
       if (user === null) {
@@ -119,7 +119,7 @@ exports.deleteUser = (req, res) => {
       res.render('register');
     });
 }
-exports.renderUser = (req, res) => {
+export function renderUser(req, res) {
   console.log(req.body.id)
   User.findById(req.body.id)
     .then((user) => {
@@ -134,6 +134,7 @@ exports.renderUser = (req, res) => {
       res.render('register');
     });
 }
+
 passport.use(new LocalStrategy(
     {passReqToCallback: true },
     function(req, email, pass, done) {
