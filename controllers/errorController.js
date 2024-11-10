@@ -1,13 +1,12 @@
-const httpStatus = require("http-status-codes");
-
 exports.pageNotFoundError = (req, res) => {
-    let errorCode = httpStatus.NOT_FOUND;
+    let errorCode = 404;
     res.status(errorCode);
     res.sendFile(`./public/404.html`, { root: "./" });
 };
 exports.internalServerError = (error, req, res, next) => {
-    let errorCode = httpStatus.INTERNAL_SERVER_ERROR;
+    let errorCode = 500;
     console.error(`ERROR occurred: ${error.stack}`);
     res.status(errorCode);
     res.sendFile(`./public/500.html`, { root: "./" });
 };
+
