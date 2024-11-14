@@ -1,80 +1,46 @@
 import {Router} from 'express';
-import passport from "passport";
+
 const router = Router();
 
-import { getFile } from "../utils.js";
-import { getAllProducts, getFilteredProducts, getAllProductsJSON, getAllProductsJSONRendered } from "../controllers/productsController.js";
-import { renderUsersTable, updateUser, renderProfile, renderUser, deleteUser, renderLogin } from "../controllers/usersController.js";
-import { renderRegisterView, registerUser } from "../controllers/registerController.js";
-import { renderIndex2, renderIndex, renderShoppingCart, renderProductView } from "../controllers/homeController.js";
-import { internalServerError, pageNotFoundError } from "../controllers/errorController.js";
+import usersController from "../controllers/usersController.js";
+import productsController from "../controllers/productsController.js";
+import jsController from "../controllers/jsController.js";
+import textureController from "../controllers/texturesController.js";
+import homeController from "../controllers/homeController.js";
+import errorController from "../controllers/errorController.js";
+import cssController from "../controllers/cssController.js";
 
-router.get("/products/searchview", getAllProducts);
-router.post("/products/searchview", getFilteredProducts);
+router.get("/product/:productID", productsController.getProduct);
 
-router.get("/users/users", renderUsersTable);
-router.put("/users/users", updateUser);
+router.get("/products/searchview", productsController.getSearchview);
+router.post("/products/searchview", productsController.getSearchViewProducts);
+router.get("/products", productsController.getProductsApi);
 
-router.get("/users/register", renderRegisterView);
-router.post("/users/register", registerUser);
+router.get("/users/users", usersController.getUsers);
+router.put("/users/users", usersController.putUsers);
+router.get("/users/profile", usersController.getProfile);
+router.post("/users/profile", usersController.postProfile);
+router.put("/users/profile", usersController.putUsers);
+router.delete("/users/profile", usersController.deleteProfile);
+router.get("/users/login", usersController.getLogin);
+router.post("/users/login/password", usersController.postLoginPassword);
+router.get("/users/register", usersController.getRegister);
+router.post("/users/register", usersController.postRegister);
+router.post("/users/logout", usersController.postLogout);
 
-router.get("/users/profile", renderProfile);
-router.post("/users/profile", renderUser);
-router.put("/users/profile", updateUser);
-router.delete("/users/profile", deleteUser);
-router.get("/users/login", renderLogin);
-router.post("/users/login/password",
-    passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: true,
-        successRedirect: '/'}));
-router.post("/users/logout", (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect("/users/login");
-        console.log('success fully logged out')
-    })
-})
-router.get("/bootstrap.css", (req, res) => {
-    res.writeHead(200, {"Content-Type": "text/css"});
-    getFile("public/css/bootstrap-4.0.0-dist/css/bootstrap.min.css", res);
-});
-router.get("/htmx.min.js", (req, res) => {
-    res.writeHead(200, {"Content-Type": "application/javascript"});
-    getFile("public/js/htmx.min.js", res);
-});
+router.get("/bootstrap.css", cssController.getCssBootstrap);
+router.get("/htmx.min.js", jsController.getJsHtmx)
+router.get("/background.bundle.js", jsController.getJsBackgroundBundle);
+router.get("/textures/:texture", textureController.getTextures);
 
-router.get("/background.bundle.js", (req, res) => {
-    res.writeHead(200, {"Content-Type": "application/javascript"});
-    getFile("public/js/background.bundle.js", res);
-});
+router.get("/renderProducts", productsController.getProductsViaApi);
 
-router.get("/textures/:texture", (req, res, next) => {
-    const texture = req.params.texture;
-    if (!texture) {
-        return next();
-    }
-    if (texture.endsWith('.jpeg') || texture.endsWith('.jpg')) {
-        res.writeHead(200, {"Content-Type": "image/jpeg"});
-    } else if (texture.endsWith('.png')) {
-        res.writeHead(200, {"Content-Type": "image/png"});
-    } else {
-        return next();
-    }
-    getFile("public/assets/textures/"+texture, res, next);
-});
-
-router.get("/products", getAllProductsJSON);
-router.get("/renderProducts",  getAllProductsJSONRendered);
-
-
-router.get("/", renderIndex2);
-router.get("/greeting/:username", renderIndex); // Render the index view
-router.get("/shoppingcart", renderShoppingCart);  // Read shoppingcart
+router.get("/", homeController.getHome);
+router.get("/greeting/:username", homeController.getGreeting); // Render the index view
+router.get("/shoppingcart", homeController.getShoppingcart);  // Read shoppingcart
 //router.put("/shoppingcart", homeController.updateShoppingCart);  // Update shoppingcart
-router.get("/product/:productID", renderProductView);
 
-router.use(internalServerError);
-router.use(pageNotFoundError);
+router.use(errorController.internalServerError);
+router.use(errorController.pageNotFoundError);
 
 export default router;
