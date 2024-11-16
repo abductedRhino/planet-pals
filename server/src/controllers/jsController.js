@@ -1,16 +1,25 @@
-import {getFile} from "../utils.js";
+import express from 'express'
+import utils from "../utils.js";
 
-function getJsHtmx(req, res) {
-    res.writeHead(200, {"Content-Type": "application/javascript"});
-    getFile("public/js/htmx.min.js", res);
-}
-
-function getJsBackgroundBundle (req, res) {
-    res.writeHead(200, {"Content-Type": "application/javascript"});
-    getFile("public/js/background.bundle.js", res);
-}
 
 export default {
-    getJsHtmx,
-    getJsBackgroundBundle,
+
+    /**
+     * @param req {express.Request}
+     * @param res {express.Response}
+     */
+    getJsHtmx(req, res) {
+        res.writeHead(200, {"Content-Type": "application/javascript"});
+        utils.getFile("public/js/htmx.min.js", res);
+    },
+
+    /**
+     * @param req {express.Request}
+     * @param res {express.Response}
+     */
+    getJsBackgroundBundle(req, res) {
+        res.writeHead(200, {"Content-Type": "application/javascript"});
+        utils.getFile("public/js/background.bundle.js", res);
+    },
+
 }

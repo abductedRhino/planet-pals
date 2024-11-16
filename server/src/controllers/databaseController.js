@@ -1,29 +1,10 @@
-import Product from './../models/productModel.js';
-import User from './../models/userModel.js';
+import Product from '../db/models/productModel.js';
+import User from '../db/models/userModel.js';
+import products from '../db/seed/productSeed.js';
+import users from '../db/seed/userSeed.js';
 
 
 export function create_product(item) {
-  const product = new Product(item);
-  product.save().then(() => console.log(`saved ${product.name}`));
-}
-
-export function fill(seed) {
-  for (const item of seed) {
-    const product = new Product(item);
-    product
-      .save()
-      .then(() => console.log(`saved ${product.name}`))
-      .catch(() => console.log(`unable to save ${product.name}`));
-  }
-}
-
-export function fillUsers(seed) {
-  for (const item of seed) {
-    const user = new User(item);
-    user
-      .save()
-      .then(() => console.log(`saved ${user.firstName}`))
-      .catch(() => console.log(`unable to save ${user.firstName}`));
-  }
+    new Product(item).save().then(() => console.log(`saved ${item.name}`));
 }
 

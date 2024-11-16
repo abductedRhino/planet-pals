@@ -1,4 +1,4 @@
-import Product from './../models/productModel.js';
+import Product from '../db/models/productModel.js';
 
 const products = {
     stickynotebert: {
@@ -20,7 +20,7 @@ function getSearchview(req, res) {
     Product.find({})
         .exec()
         .then((products) => {
-            res.render('searchview', {products: products});
+            res.render('products/searchview', {products: products});
         })
         .catch((error) => {
             console.error(error.message);
@@ -42,14 +42,14 @@ function getProductsApi(req, res) {
 function getProduct(req, res) {
     const productID = req.params.productID;
     const product = products[productID];
-    res.render("product", {product});
+    res.render("products/product", {product});
 }
 
 function getProductsViaApi(req, res) {
     Product.find({})
         .exec()
         .then((products) => {
-            res.render("products_via_api", {json: JSON.stringify(products)});
+            res.render("products/products_via_api", {json: JSON.stringify(products)});
         })
         .catch((error) => {
             console.error(error.message);
@@ -66,7 +66,7 @@ function getSearchViewProducts(req, res) {
     Product.find(filter)
         .exec()
         .then((products) => {
-            res.render('searchview-products', {products: products});
+            res.render('products/searchview-products', {products: products});
         })
         .catch((error) => {
             console.error(error.message);

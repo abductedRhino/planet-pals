@@ -5,17 +5,10 @@ import serve_static from 'serve-static';
 import cookie_parser from 'cookie-parser';
 import body_parser from 'body-parser';
 import express_session from 'express-session';
+import db from './db/init.js';
+import router from "./router/router.js";
 
-import productSeed from "./models/productSeed.js";
-import userSeed from "./models/userSeed.js";
-import {fill, fillUsers} from "./controllers/databaseController.js";
-import router from "./routes/routes.js";
-
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/basic');
-mongoose.connection.once('open', () => { console.log('open!') }) // delete?
-
-fill(productSeed);
-fillUsers(userSeed);
+db.init()
 
 const app = express();
 

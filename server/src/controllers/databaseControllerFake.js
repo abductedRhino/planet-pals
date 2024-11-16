@@ -1,4 +1,4 @@
-const Product = require('./../models/productModel');
+const Product = require('../db/models/productModel.js');
 
 const fake_database = {};
 

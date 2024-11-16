@@ -1,5 +1,5 @@
 import { html } from "./contentTypes.js";
-import { getFile } from "./utils.js";
+import utils from "./utils.js";
 
 // create route objects to hold route functions
 const routes = {
@@ -13,7 +13,7 @@ export function handle(req, res) {
         routes[req.method][req.url](req, res);
     } catch (e) {
         res.writeHead(200, html);
-        getFile("views/error.html", res);
+        utils.getFile("views/error.html", res);
     }
 }
 
