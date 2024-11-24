@@ -8,12 +8,12 @@ const routes = {
 };
 
 // create handle function to handle requests
-export function handle(req, res) {
+export function handle(req, res, next) {
     try {
         routes[req.method][req.url](req, res);
     } catch (e) {
         res.writeHead(200, html);
-        utils.getFile("views/error.html", res);
+        utils.sendFileContents("views/error.html", res, next);
     }
 }
 

@@ -3,7 +3,7 @@ import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 
 export default {
     mode: 'production',
-    entry: './background/src/main.js',
+    entry: '../background/src/main.js',
     output: {
         path: resolve(import.meta.dirname, 'public', 'js'),
         filename: 'background.bundle.js',

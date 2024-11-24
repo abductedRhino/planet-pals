@@ -7,19 +7,19 @@ export default {
     /**
      * @param req {express.Request}
      * @param res {express.Response}
+     * @param next {express.NextFunction}
      */
-    getJsHtmx(req, res) {
-        res.writeHead(200, {"Content-Type": "application/javascript"});
-        utils.getFile("public/js/htmx.min.js", res);
+    getJsHtmx(req, res, next) {
+        utils.sendFileContents("src/public/js/htmx.min.js", res, next);
     },
 
     /**
      * @param req {express.Request}
      * @param res {express.Response}
+     * @param next {express.NextFunction}
      */
-    getJsBackgroundBundle(req, res) {
-        res.writeHead(200, {"Content-Type": "application/javascript"});
-        utils.getFile("public/js/background.bundle.js", res);
+    getJsBackgroundBundle(req, res, next) {
+        utils.sendFileContents("src/public/js/background.bundle.js", res, next);
     },
 
 }
