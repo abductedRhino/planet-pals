@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import passport from 'passport';
 import serve_static from 'serve-static';
 import cookie_parser from 'cookie-parser';
@@ -13,8 +12,8 @@ db.init()
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
-
 app.set("view engine", "ejs");
+app.set("views", import.meta.dirname+"/views");
 
 app.use(express.static("src/public"));
 app.use(express.urlencoded({ extended: false }));
@@ -31,4 +30,3 @@ const port = app.get("port");
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
